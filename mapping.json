@@ -1,0 +1,549 @@
+[{
+    "name": "initialized",
+    "output": {
+        "actor": {
+            "name": "${name}"
+        },
+        "verb": {
+            "id": "http://adlnet.gov/expapi/verbs/${event}"
+        },
+        "object": {
+            "id": "https://first-aid-game.e-ucm.es/${target}",
+            "definition": {
+                "${type(https://rage.e-ucm.es/xapi/seriousgames/activities/,type)}": null
+            }
+        },
+        "${variables(https://first-aid-game.e-ucm.es/variables/)}": null,
+        "timestamp": "${timestamp}"
+    },
+    "examples": [{
+            "name": "LTDC",
+            "timestamp": "2017-01-23T14:23:45.031Z",
+            "event": "initialized",
+            "target": "JuegoCompleto",
+            "type": "serious-game",
+            "DT": true,
+            "OrdenOpciones1": false,
+            "OrdenOpciones2": true,
+            "Desfibrilador": false,
+            "NotaDT": 0
+        },
+        {
+            "name": "LTDC",
+            "timestamp": "2017-01-23T14:23:53.185Z",
+            "event": "initialized",
+            "target": "DolorToracico",
+            "type": "level",
+            "DT": true,
+            "OrdenOpciones1": false,
+            "OrdenOpciones2": true,
+            "Desfibrilador": false,
+            "NotaDT": 0
+        },
+        {
+            "name": "LTDC",
+            "timestamp": "2017-01-23T14:24:48.155Z",
+            "event": "initialized",
+            "target": "Inconsciente",
+            "type": "level",
+            "INC": true,
+            "OrdenOpciones1": true,
+            "OrdenOpciones2": true,
+            "Desfibrilador": false,
+            "NotaINC": 0
+        },
+        {
+            "name": "BTDD",
+            "timestamp": "2017-01-23T17:25:15.830Z",
+            "event": "initialized",
+            "target": "Atragantamiento",
+            "type": "level",
+            "AT": true,
+            "NotaAT": 0,
+            "OrdenOpciones1": true,
+            "OrdenOpciones2": true,
+            "Desfibrilador": false
+        }
+    ]
+}, {
+    "name": "selected",
+    "input": {},
+    "output": {
+        "actor": {
+            "name": "${name}"
+        },
+        "verb": {
+            "id": "http://adlnet.gov/expapi/verbs/${event}"
+        },
+        "object": {
+            "id": "https://first-aid-game.e-ucm.es/${target}",
+            "definition": {
+                "type": "https://rage.e-ucm.es/xapi/seriousgames/activities/${type}"
+            }
+        },
+        "result": {
+            "response": "${response}",
+            "${optional(success)}": "${success}"
+        },
+        "${variables(https://first-aid-game.e-ucm.es/variables/)}": null,
+        "timestamp": "${timestamp}"
+    },
+    "examples": [{
+            "name": "LTDC",
+            "timestamp": "2017-01-23T14:23:53.133Z",
+            "event": "selected",
+            "target": "Inicio",
+            "type": "menu",
+            "response": "DolorToracico"
+        },
+        {
+            "name": "LTDC",
+            "timestamp": "2017-01-23T14:24:48.104Z",
+            "event": "selected",
+            "target": "Inicio",
+            "type": "menu",
+            "response": "Inconsciente"
+        },
+        {
+            "name": "LTDC",
+            "timestamp": "2017-01-23T15:46:07.096Z",
+            "event": "selected",
+            "target": "FormasEstimular",
+            "type": "alternative",
+            "success": true,
+            "response": "VideoEstimular"
+        },
+        {
+            "name": "JDDL",
+            "timestamp": "2017-01-23T17:18:25.376Z",
+            "event": "selected",
+            "target": "ComoAsistir",
+            "type": "alternative",
+            "success": true,
+            "response": "DolorToracico"
+        },
+        {
+            "name": "JDDL",
+            "timestamp": "2017-01-23T17:19:46.875Z",
+            "event": "selected",
+            "target": "Inicio",
+            "type": "menu",
+            "response": "Inconsciente",
+            "AT": false,
+            "Ayuda": false,
+            "BotonIntermitente": false,
+            "ComproboRespiracion": false,
+            "DT": false,
+            "DefibriladorAbierto": false,
+            "DesfibriladorColocado": false,
+            "ElectrodosConectados": false,
+            "Estimulado": false,
+            "HablandoTelefono": false,
+            "INC": false,
+            "InicioTos": false,
+            "Llamo112": false,
+            "LuzIntermitente": false,
+            "PosicionDeSeguridad": false,
+            "ProponeEsperar": false,
+            "RealizoHeimlich": false,
+            "Respira": false,
+            "Sentado": false,
+            "TelEscondido": false,
+            "VieneAmbulancia": false,
+            "TerminoDT": true
+        },
+        {
+            "name": "JDDL",
+            "timestamp": "2017-01-23T17:20:06.481Z",
+            "event": "selected",
+            "target": "FormasEstimular",
+            "type": "alternative",
+            "success": true,
+            "response": "VideoEstimular",
+            "NotaINC": -2
+        },
+        {
+            "name": "CPQP",
+            "timestamp": "2017-01-23T17:20:24.567Z",
+            "event": "selected",
+            "target": "INCQueHacerSilla",
+            "type": "question",
+            "success": false,
+            "response": "Colocar recto en la silla",
+            "Estimulado": true,
+            "IniciarTimerInconsciente": false
+        },
+        {
+            "name": "JDDL",
+            "timestamp": "2017-01-23T17:21:50.065Z",
+            "event": "selected",
+            "target": "ATNombreManiobra",
+            "type": "question",
+            "success": true,
+            "response": "Heimlich",
+            "NotaAT": 1
+        },
+        {
+            "name": "JDDL",
+            "timestamp": "2017-01-23T17:21:51.992Z",
+            "event": "selected",
+            "target": "ColocacionHeimlich",
+            "type": "alternative",
+            "success": true,
+            "response": "ManosHeimlich",
+            "NotaAT": 3
+        },
+        {
+            "name": "GFGH",
+            "timestamp": "2017-01-23T17:24:24.466Z",
+            "event": "selected",
+            "target": "ColocacionManosCPR",
+            "type": "alternative",
+            "success": true,
+            "response": "VideoResucitacion",
+            "NotaINC": 6
+        }
+    ]
+}, {
+    "name": "progressed",
+    "input": {},
+    "output": {
+        "actor": {
+            "name": "${name}"
+        },
+        "verb": {
+            "id": "http://adlnet.gov/expapi/verbs/${event}"
+        },
+        "object": {
+            "id": "https://first-aid-game.e-ucm.es/${target}",
+            "definition": {
+                "type": "https://w3id.org/xapi/seriousgames/activity-types/${type}"
+            }
+        },
+        "result": {
+            "extensions": {
+                "https://w3id.org/xapi/seriousgames/extensions/progress": "${progress}",
+                "progress": "${progress}"
+            }
+        },
+        "${variables(https://first-aid-game.e-ucm.es/variables/)}": null,
+        "timestamp": "${timestamp}"
+    },
+    "examples": [{
+            "name": "LTDC",
+            "timestamp": "2017-01-23T14:23:45.042Z",
+            "event": "progressed",
+            "target": "JuegoCompleto",
+            "type": "serious-game",
+            "progress": 0
+        },
+        {
+            "name": "LTDC",
+            "timestamp": "2017-01-23T14:23:53.199Z",
+            "event": "progressed",
+            "target": "DolorToracico",
+            "type": "level",
+            "progress": 0
+        },
+        {
+            "name": "JDDL",
+            "timestamp": "2017-01-23T17:18:23.128Z",
+            "event": "progressed",
+            "target": "DolorToracico",
+            "type": "level",
+            "TelEscondido": true,
+            "TemporizadorConsciencia": true,
+            "Llamo112": true,
+            "progress": 0.1
+        },
+        {
+            "name": "JDDL",
+            "timestamp": "2017-01-23T17:18:25.378Z",
+            "event": "progressed",
+            "target": "DolorToracico",
+            "type": "level",
+            "Sentado": true,
+            "progress": 0.2
+        },
+        {
+            "name": "JDDL",
+            "timestamp": "2017-01-23T17:18:34.990Z",
+            "event": "progressed",
+            "target": "DolorToracico",
+            "type": "level",
+            "IniciarTimerInconsciente": true,
+            "NotaDT": 1,
+            "INC": true,
+            "progress": 0.3
+        },
+        {
+            "name": "JDDL",
+            "timestamp": "2017-01-23T17:19:04.587Z",
+            "event": "progressed",
+            "target": "DolorToracico",
+            "type": "level",
+            "ComproboRespiracion": true,
+            "progress": 0.4
+        },
+        {
+            "name": "CPQP",
+            "timestamp": "2017-01-23T17:20:00.600Z",
+            "event": "progressed",
+            "target": "DolorToracico",
+            "type": "level",
+            "Ayuda": true,
+            "NotaDT": -1,
+            "Llamo112": true,
+            "progress": 1
+        },
+        {
+            "name": "JDDL",
+            "timestamp": "2017-01-23T17:20:06.482Z",
+            "event": "progressed",
+            "target": "Inconsciente",
+            "type": "level",
+            "Estimulado": true,
+            "progress": 0.2
+        },
+        {
+            "name": "CPQP",
+            "timestamp": "2017-01-23T17:24:48.581Z",
+            "event": "progressed",
+            "target": "Inconsciente",
+            "type": "level",
+            "Respira": true,
+            "progress": 7
+        },
+        {
+            "name": "CPQP",
+            "timestamp": "2017-01-23T17:25:11.360Z",
+            "event": "progressed",
+            "target": "Inconsciente",
+            "type": "level",
+            "VieneAmbulancia": false,
+            "progress": 1
+        }
+    ]
+}, {
+    "name": "accessed",
+    "input": {},
+    "output": {
+        "actor": {
+            "name": "${name}"
+        },
+        "verb": {
+            "id": "http://adlnet.gov/expapi/verbs/${event}"
+        },
+        "object": {
+            "id": "https://first-aid-game.e-ucm.es/${target}",
+            "definition": {
+                "${type(https://rage.e-ucm.es/xapi/seriousgames/activities/,type)}": null
+            }
+        },
+        "${variables(https://first-aid-game.e-ucm.es/variables/)}": null,
+        "timestamp": "${timestamp}"
+    },
+    "examples": [{
+            "name": "LTDC",
+            "timestamp": "2017-01-23T15:46:07.103Z",
+            "event": "accessed",
+            "target": "VideoEstimular",
+            "type": "cutscene",
+            "NotaINC": 0
+        },
+        {
+            "name": "JDDL",
+            "timestamp": "2017-01-23T17:19:04.593Z",
+            "event": "accessed",
+            "target": "VideoMirarOirSentir",
+            "type": "cutscene",
+            "NotaDT": 5
+        },
+        {
+            "name": "JDDL",
+            "timestamp": "2017-01-23T17:19:11.743Z",
+            "event": "accessed",
+            "target": "VideoCambiarPosicion",
+            "type": "cutscene",
+            "NotaDT": 8
+        },
+        {
+            "name": "GFGH",
+            "timestamp": "2017-01-23T17:24:07.555Z",
+            "event": "accessed",
+            "target": "VideoMirarOirSentir",
+            "type": "cutscene",
+            "Respira": false,
+            "NotaINC": 5
+        }, {
+            "name": "GFGH",
+            "timestamp": "2017-01-23T17:25:35.447Z",
+            "event": "accessed",
+            "target": "ResumenVideoHeimlich",
+            "type": "cutscene"
+        },
+        {
+            "name": "GFGH",
+            "timestamp": "2017-01-23T17:25:43.778Z",
+            "event": "accessed",
+            "target": "Creditos",
+            "type": "screen"
+        }
+    ]
+}, {
+    "name": "skipped",
+    "input": {},
+    "output": {
+        "actor": {
+            "name": "${name}"
+        },
+        "verb": {
+            "id": "http://adlnet.gov/expapi/verbs/${event}"
+        },
+        "object": {
+            "id": "https://first-aid-game.e-ucm.es/${target}",
+            "definition": {
+                "${type(https://rage.e-ucm.es/xapi/seriousgames/activities/,type)}": null
+            }
+        },
+        "${variables(https://first-aid-game.e-ucm.es/variables/)}": null,
+        "timestamp": "${timestamp}"
+    },
+    "examples": [{
+        "name": "JDDL",
+        "timestamp": "2017-01-23T17:19:12.349Z",
+        "event": "skipped",
+        "target": "VideoCambiarPosicion",
+        "type": "cutscene",
+        "VieneAmbulancia": true
+    }, {
+        "name": "JDDL",
+        "timestamp": "2017-01-23T17:20:07.009Z",
+        "event": "skipped",
+        "target": "VideoEstimular",
+        "type": "cutscene"
+    }]
+}, {
+    "name": "interacted",
+    "input": {},
+    "output": {
+        "actor": {
+            "name": "${name}"
+        },
+        "verb": {
+            "id": "http://adlnet.gov/expapi/verbs/${event}"
+        },
+        "object": {
+            "id": "https://first-aid-game.e-ucm.es/${target}",
+            "definition": {
+                "${type(https://rage.e-ucm.es/xapi/seriousgames/interaction/,type)}": null
+            }
+        },
+        "${variables(https://first-aid-game.e-ucm.es/variables/)}": null,
+        "timestamp": "${timestamp}"
+    },
+    "examples": [{
+            "name": "JDDL",
+            "timestamp": "2017-01-23T17:18:23.867Z",
+            "event": "interacted",
+            "target": "PersonaParada",
+            "type": "non-player-character"
+        },
+        {
+            "name": "CPQP",
+            "timestamp": "2017-01-23T17:20:01.198Z",
+            "event": "interacted",
+            "target": "Telefono",
+            "type": "non-player-character"
+        },
+        {
+            "name": "JDDL",
+            "timestamp": "2017-01-23T17:20:19.203Z",
+            "event": "interacted",
+            "target": "Victima",
+            "type": "non-player-character"
+        },
+        {
+            "name": "LTHI",
+            "timestamp": "2017-01-27T09:31:02.760Z",
+            "event": "interacted",
+            "target": "Persona",
+            "type": "non-player-character",
+            "Ayuda": true,
+            "Llamo112": true
+        }
+    ]
+}, {
+    "name": "completed",
+    "input": {},
+    "output": {
+        "actor": {
+            "name": "${name}"
+        },
+        "verb": {
+            "id": "http://adlnet.gov/expapi/verbs/${event}"
+        },
+        "object": {
+            "id": "https://first-aid-game.e-ucm.es/${target}",
+            "definition": {
+                "type": "https://w3id.org/xapi/seriousgames/activity-types/${type}"
+            }
+        },
+        "result": {
+            "extensions": {
+                "${optional(success)}": true,
+                "${optional(score)}": 0.8,
+                "${optional(time)}": 110.8
+            }
+        },
+        "timestamp": "${timestamp}"
+    },
+    "examples": [{
+            "name": "JDDL",
+            "timestamp": "2017-01-23T17:19:21.316Z",
+            "event": "completed",
+            "target": "DolorToracico",
+            "type": "level",
+            "score": 0.8,
+            "success": true
+        },
+        {
+            "name": "JDDL",
+            "timestamp": "2017-01-23T17:19:21.318Z",
+            "event": "completed",
+            "target": "DolorToracico",
+            "type": "level",
+            "score": 0.8,
+            "success": true,
+            "time": 110.8632
+        }, {
+            "name": "JDDL",
+            "timestamp": "2017-01-23T17:20:32.697Z",
+            "event": "completed",
+            "target": "Inconsciente",
+            "type": "level",
+            "score": 0.7,
+            "success": true
+        },
+        {
+            "name": "JDDL",
+            "timestamp": "2017-01-23T17:20:32.698Z",
+            "event": "completed",
+            "target": "Inconsciente",
+            "type": "level",
+            "score": 0.7,
+            "success": true,
+            "time": 45.80935
+        },
+        {
+            "name": "XBSD",
+            "timestamp": "2017-02-07T09:42:42.791Z",
+            "event": "completed",
+            "target": "JuegoCompleto",
+            "type": "serious-game",
+            "score": 0.7,
+            "success": true,
+            "time": 727.9096
+        }
+    ]
+}]
