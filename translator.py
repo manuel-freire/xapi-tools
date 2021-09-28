@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import json, re
+import json, csv, re
 import argparse
 
 from datetime import datetime
@@ -9,6 +9,35 @@ import copy
 import numpy as np
 
 import sys
+
+# input (file LDTC.log) 1632774074287,initialized,game,La Entrevista
+# output (as a hit)
+# { 
+#  "name": "LTDC",
+#  "timestamp": "2017-01-23T14:23:45.031Z",
+#  "event": "initialized",
+#  "target": "JuegoCompleto",
+#  "type": "serious-game"
+# }
+def csv_to_json(input_file_name, input_f):
+    hits = []
+    token = input_file_name.replace(".log", "")
+    csv_reader = csv.reader(input_f, delimiter=',', quotechar='"')
+    for row in csv_reader:
+        dt = datetime.fromtimestamp(float(row[0])/1000)
+        hit = {
+            "_source": { 
+                "name": token, 
+                "timestamp": dt.isoformat(timespec='milliseconds').replace('+00:00', 'Z'),
+                "event": row[1],     
+                "type": row[2],
+                "target": row[3]       
+            }
+        }
+        for idx in range(4, len(row), 2):
+            hit["_source"][row[idx]] = row[idx+1]
+        hits.append(hit)
+    return {"hits" : { "hits" : hits}}
 
 def main(input_files, output_file, mappings_file, not_before, not_after, index, filter, limit_actors, verbosity):
 
@@ -22,7 +51,11 @@ def main(input_files, output_file, mappings_file, not_before, not_after, index, 
     current = 0
     for input_file in input_files:
         with open(input_file, 'r') as input_f:
-            data = json.load(input_f)            
+            try:
+                data = json.load(input_f)            
+            except json.decoder.JSONDecodeError:
+                input_f.seek(0)
+                data = csv_to_json(input_file, input_f)
             hits = data["hits"]["hits"]
 
             input_counter = 0
@@ -57,6 +90,10 @@ def main(input_files, output_file, mappings_file, not_before, not_after, index, 
                             actors[actor_name] = actor
                     else:
                         actor = actors[actor_name]
+                else:
+                    if actor_name not in actors:
+                        actor = {"low": timestamp, "high": timestamp, "statements": 0}
+                        actors[actor_name] = actor
                 if index is not None and index != current:
                     continue
 
@@ -353,7 +390,7 @@ class Translator:
             m = Translator.subst_regex.match(o)
             if m is not None:
                 result = event[m.group(1)] # a full match may yield int
-            else:                        # partial matches may not
+            else:                          # partial matches may not
                 result = re.sub(Translator.subst_regex, 
                     lambda m: self.subst_in_str(m.group(1), m.group(3), event), o)
         elif isinstance(o, object):
