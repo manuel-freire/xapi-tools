@@ -19,11 +19,15 @@ import sys
 #  "target": "JuegoCompleto",
 #  "type": "serious-game"
 # }
-def csv_to_json(input_file_name, input_f):
+def csv_to_json(input_file_name, input_f, verbosity):
     hits = []
     token = input_file_name.replace(".log", "")
-    csv_reader = csv.reader(input_f, delimiter=',', quotechar='"')
+    csv_reader = csv.reader(input_f, delimiter=',', quotechar='"', escapechar='\\')
+    line = 0
     for row in csv_reader:
+        if verbosity > 1:
+            print(f'[csv->json, line {line}]\n{row}')
+        line = line + 1
         dt = datetime.fromtimestamp(float(row[0])/1000)
         hit = {
             "_source": { 
@@ -36,8 +40,17 @@ def csv_to_json(input_file_name, input_f):
         }
         for idx in range(4, len(row), 2):
             hit["_source"][row[idx]] = row[idx+1]
-        hits.append(hit)
-    return {"hits" : { "hits" : hits}}
+        hits.append(hit)        
+        if verbosity > 1:
+            print(f'=>\n{hit}')
+    
+    as_json = {"hits" : { "hits" : hits}}
+
+    if verbosity > 1:
+        print("\n\n")
+        print(as_json)
+
+    return as_json
 
 def main(input_files, output_file, mappings_file, not_before, not_after, index, filter, limit_actors, verbosity):
 
@@ -55,7 +68,7 @@ def main(input_files, output_file, mappings_file, not_before, not_after, index, 
                 data = json.load(input_f)            
             except json.decoder.JSONDecodeError:
                 input_f.seek(0)
-                data = csv_to_json(input_file, input_f)
+                data = csv_to_json(input_file, input_f, verbosity)
             hits = data["hits"]["hits"]
 
             input_counter = 0

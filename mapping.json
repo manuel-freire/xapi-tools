@@ -546,4 +546,99 @@
             "time": 727.9096
         }
     ]
+}, {
+    "name": "moved",
+    "input": {},
+    "output": {
+        "actor": {
+            "name": "${name}"
+        },
+        "verb": {
+            "id": "http://adlnet.gov/expapi/verbs/${event}"
+        },
+        "object": {
+            "id": "https://first-aid-game.e-ucm.es/${target}",
+            "definition": {
+                "type": "https://w3id.org/xapi/seriousgames/activity-types/${type}"
+            }
+        },
+        "result": {
+            "extensions": {
+                "${optional(location)}": "40.4480209350586,-3.72716450691223"
+            }
+        },
+        "timestamp": "${timestamp}"
+    },
+    "examples": [{
+        "name": "expk.csv",
+        "timestamp": "2021-10-20T17:11:49.948",
+        "event": "moved",
+        "type": "place",
+        "target": "MapaIntroduccion",
+        "location": "40.4480209350586,-3.72716450691223"
+    }]
+}, {
+    "name": "entered",
+    "input": {},
+    "output": {
+        "actor": {
+            "name": "${name}"
+        },
+        "verb": {
+            "id": "http://adlnet.gov/expapi/verbs/${event}"
+        },
+        "object": {
+            "id": "https://first-aid-game.e-ucm.es/${target}",
+            "definition": {
+                "type": "https://w3id.org/xapi/seriousgames/activity-types/${type}"
+            }
+        },
+        "result": {
+            "extensions": {
+                "${optional(location)}": "0,0"
+            }
+        },
+        "timestamp": "${timestamp}"
+    },
+    "examples": [{
+        "name": "expk.csv",
+        "timestamp": "2021-10-20T17:29:31.121",
+        "event": "entered",
+        "type": "place",
+        "target": "LimitesIntroduccion",
+        "location": "0,0",
+        "FueraLimites": "0"
+    }]
+}, {
+    "name": "exited",
+    "input": {},
+    "output": {
+        "actor": {
+            "name": "${name}"
+        },
+        "verb": {
+            "id": "http://adlnet.gov/expapi/verbs/${event}"
+        },
+        "object": {
+            "id": "https://first-aid-game.e-ucm.es/${target}",
+            "definition": {
+                "type": "https://w3id.org/xapi/seriousgames/activity-types/${type}"
+            }
+        },
+        "result": {
+            "extensions": {
+                "${optional(location)}": "0,0"
+            }
+        },
+        "timestamp": "${timestamp}"
+    },
+    "examples": [{
+        "name": "expk.csv",
+        "timestamp": "2021-10-20T17:29:31.121",
+        "event": "exited",
+        "type": "place",
+        "target": "LimitesIntroduccion",
+        "location": "0,0",
+        "FueraLimites": "0"
+    }]
 }]
